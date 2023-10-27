@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const LoginView(),
-      // home: const MainPage(title: "DAYPLE", username: "test"),
+      // home: const LoginView(),
+      home: const MainPage(title: "DAYPLE", username: "test"),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title, required this.username});
 
@@ -59,8 +60,11 @@ class _MainPageState extends State<MainPage> {
           automaticallyImplyLeading: false),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.15,
+          ),
           Text('${widget.username} 님을 위한 추천 코스'),
           const Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -160,8 +164,7 @@ class _MainPageState extends State<MainPage> {
                                           vertical: 5.0, horizontal: 25.0),
                                       child: Text(
                                         'No. ${imgList.indexOf(item)} image',
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        style: const TextStyle(                                          color: Colors.white,
                                           fontSize: 11.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -175,12 +178,14 @@ class _MainPageState extends State<MainPage> {
               ),
             ]),
           ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.15,
+          ),
           DragTarget<int>(
             builder: (BuildContext context, List<int?> candidateData,
                 List<dynamic> rejectedData) {
-              return Container(
-                  height: 100.0,
-                  width: 100.0,
+              return Align(
+                alignment: Alignment.bottomLeft,
                   // color: Colors.cyan,
                   child: Visibility(
                     visible: isDragging,
@@ -237,43 +242,3 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80',
   'https://cdn-icons-png.flaticon.com/512/9055/9055000.png'
 ];
-
-final List<Widget> imageSliders = imgList
-    .map((item) => Container(
-          margin: const EdgeInsets.all(5.0),
-          child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(300.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.network(item, fit: BoxFit.fill, width: 1000.0),
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(200, 0, 0, 0),
-                            Color.fromARGB(0, 0, 0, 0)
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5.0, horizontal: 25.0),
-                      child: Text(
-                        'No. ${imgList.indexOf(item)} image',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )),
-        ))
-    .toList();

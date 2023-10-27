@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 
@@ -45,7 +46,12 @@ class LoginView extends StatelessWidget{
                     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('로그인 성공 : ${res.toString()}')));
                     print( res.toString() );
                     if ( res.status == NaverLoginStatus.loggedIn ) {
-                      print('로그인 성공 : ${res.account.name}');
+                      if ( kDebugMode ) {
+                        SnackBar(
+                          content : Text('로그인 성공 : ${res.toString()}')
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('로그인 성공 : ${res.account}')));
+                      }
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
