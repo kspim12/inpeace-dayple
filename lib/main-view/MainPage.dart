@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dayple/main-view/detail-view/DetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
-
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title, required this.username});
@@ -72,14 +72,6 @@ class _MainPageState extends State<MainPage> {
                 Icon(Icons.location_on_outlined),
                 Text('현재 위치'),
               ]),
-          // CarouselSlider(
-          //   options: CarouselOptions(
-          //     autoPlay: false,
-          //     aspectRatio: 2.0,
-          //     enlargeCenterPage: true,
-          //   ),
-          //   items: imageSliders,
-          // ),
           Container(
             child: Stack(alignment: Alignment.centerLeft, children: <Widget>[
               Positioned(
@@ -142,8 +134,18 @@ class _MainPageState extends State<MainPage> {
                                             width: 1000.0,
                                           )),
                                     ),
-                                    child: Image.network(item,
-                                        fit: BoxFit.fill, width: 1000.0),
+                                    // **************************** 메인 그림 ****************************/
+                                    // child: Image.network(item,
+                                    //     fit: BoxFit.fill, width: 1000.0),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        print('pressed $item');
+                                        DetailPage().showDetailPage(
+                                            context, item);
+                                      },
+                                      child: Image.network(item,
+                                          fit: BoxFit.fill, width: 1000.0),
+                                    )
                                   ),
                                   Positioned(
                                     bottom: 0.0,
@@ -164,7 +166,8 @@ class _MainPageState extends State<MainPage> {
                                           vertical: 5.0, horizontal: 25.0),
                                       child: Text(
                                         'No. ${imgList.indexOf(item)} image',
-                                        style: const TextStyle(                                          color: Colors.white,
+                                        style: const TextStyle(
+                                          color: Colors.white,
                                           fontSize: 11.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -190,16 +193,39 @@ class _MainPageState extends State<MainPage> {
                   child: Visibility(
                     visible: isDragging,
                     child: Center(
-                      child: Icon(Icons.delete, size: 100),
+                      child: Icon(Icons.delete, size: 70),
                     ),
                   ));
             },
             onAccept: (int image_index) {
-              setState(() {
-                print(image_index);
-                this.image_index = image_index;
-                imgList.removeAt(image_index);
-              });
+              showDialog(context: context, builder: (BuildContext context) => Dialog(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text('코스에서 삭제 하시겠습니까?'),
+                    const SizedBox(height: 15),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          print(image_index);
+                          this.image_index = image_index;
+                          imgList.removeAt(image_index);
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text('예'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('아니오'),
+                    ),
+                  ]
+                )
+              ));
+
             },
           ),
         ],
