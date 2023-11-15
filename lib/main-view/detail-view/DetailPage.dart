@@ -40,49 +40,103 @@ class DetailPage {
                         children: <Widget>[
                           Align(
                             alignment: Alignment.centerLeft,
-                            child:Text('주소'),
+                            child:Text('주소', style: TextStyle(fontWeight: FontWeight.w900)),
                           ),
                           Align(
                             alignment: Alignment.centerLeft,
                             child:Text('경기도 하남시 망월동 1191'),
                           ),
-                          Container(width: MediaQuery.of(context).size.width * 0.7,child: Divider(color: Colors.black, thickness: 2.0, )),
+                          Container(width: MediaQuery.of(context).size.width,child: Divider(color: Colors.grey, thickness: 1.0, )),
                         ],
                       ));
                     }
 
                     if ( index == 3 ) {
                       return Container(
-                          margin: const EdgeInsets.only(left: 50.0, top: 10.0, bottom: 10.0),
+                          margin: const EdgeInsets.all(10.0),
                           child: Column(
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child:Text('영업 시간'),
+                                child:Text('영업 시간', style: TextStyle(fontWeight: FontWeight.w900)),
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child:Text('오늘 11:00 ~ 22:00'),
+                                child:Text('11:00 ~ 22:00'),
                               ),
-                              Container(width: MediaQuery.of(context).size.width * 0.7,child: Divider(color: Colors.black, thickness: 2.0, )),
+                              Container(width: MediaQuery.of(context).size.width,child: Divider(color: Colors.grey, thickness: 1.0, )),
                             ],
                           ));
                     }
 
                     if ( index == 4 ) {
                       return Container(
-                          margin: const EdgeInsets.only(left: 50.0, top: 10.0, bottom: 10.0),
+                          margin: const EdgeInsets.all(10.0),
                           child: Column(
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child:Text('전화'),
+                                child:Text('전화번호', style: TextStyle(fontWeight: FontWeight.w900)),
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child:Text('011 0000 0000'),
                               ),
-                              Container(width: MediaQuery.of(context).size.width * 0.7,child: Divider(color: Colors.black, thickness: 2.0, )),
+                              Container(width: MediaQuery.of(context).size.width,child: Divider(color: Colors.grey, thickness: 1.0, )),
+                            ],
+                          ));
+                    }
+
+                    if ( index == 5 ) {
+                      return Container(
+                          margin: EdgeInsets.all(10.0),
+                          child: Column(
+                            children: <Widget>[
+                              Stack(
+                                children: <Widget>[
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child:Text('리뷰 24', style: TextStyle(fontWeight: FontWeight.w900)),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child:Text('글쓰기', style: TextStyle(fontSize: 12)),
+                                  ),
+                                ],
+                              ),
+
+                              Stack(
+                                children: <Widget>[
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: [
+                                        Text('최신순', style: TextStyle(fontWeight: FontWeight.w900)),
+                                        Icon(Icons.keyboard_arrow_down),
+                                      ],
+                                    )
+                                  ),
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Row(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Checkbox(
+                                              value: false,
+                                              onChanged: (bool? value) {
+                                                print("clicked check box");
+                                              },
+                                            ),
+                                          ),
+                                          Text('사진만 보기'),
+                                        ],
+                                      )
+                                  )
+                                ],
+                              ),
+
+                              Container(width: MediaQuery.of(context).size.width,child: Divider(color: Colors.grey, thickness: 1.0, )),
                             ],
                           ));
                     }

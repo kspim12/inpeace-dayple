@@ -1,3 +1,4 @@
+import 'package:dayple/test.dart';
 import 'package:flutter/material.dart';
 
 import 'login/loginView.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const LoginView(),
       home: const MainPage(title: "DAYPLE", username: "test"),
+      // home: Test(),
     );
   }
 }
