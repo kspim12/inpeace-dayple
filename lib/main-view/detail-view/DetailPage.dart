@@ -106,34 +106,21 @@ class DetailPage {
                               ),
 
                               Stack(
-                                children: <Widget>[
+
+                                children: [
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: [
-                                        Text('최신순', style: TextStyle(fontWeight: FontWeight.w900)),
-                                        Icon(Icons.keyboard_arrow_down),
-                                      ],
-                                    )
+                                    child: Text('최신순')
                                   ),
                                   Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Row(
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Checkbox(
-                                              value: false,
-                                              onChanged: (bool? value) {
-                                                print("clicked check box");
-                                              },
-                                            ),
-                                          ),
-                                          Text('사진만 보기'),
-                                        ],
-                                      )
+                                    alignment: Alignment.centerRight,
+                                    child: Text('ㅁ 사진만 보기')
                                   )
                                 ],
+                              ),
+
+                              Container(
+                                
                               ),
 
                               Container(width: MediaQuery.of(context).size.width,child: Divider(color: Colors.grey, thickness: 1.0, )),

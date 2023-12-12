@@ -55,12 +55,11 @@ class LoginView extends StatelessWidget{
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return MainPage(title: 'DAYPLE', username: res.account.name);
+                            return MainPage(title: 'DAYPLE', username: res.account.name,);
                           },
                         ),
                       );
                     }
-
                   },
                   child: Image.asset('assets/naver/naver_login.png', fit:BoxFit.fill, width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height * 0.1),
                   style: ElevatedButton.styleFrom(
@@ -98,7 +97,6 @@ class LoginView extends StatelessWidget{
                   ),
                 ),
               )
-
             ],
         )
       )

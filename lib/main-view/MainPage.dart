@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:crypto/crypto.dart';
 import 'package:dayple/main-view/detail-view/DetailPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -25,9 +28,36 @@ class MainPage extends StatefulWidget {
 }
 
 bool isDragging = false;
+String location = "";
+
 
 class _MainPageState extends State<MainPage> {
   int image_index = 0;
+
+  @override
+  void initState() {
+    String space = " ";					// one space
+    String newLine = "\n";					// new line
+    String method = "GET";					// method
+    String url = "/geolocation/v2/geoLocation?ip=112.221.94.101";	// url (include query string)
+    int timestamp = DateTime.now().millisecondsSinceEpoch;
+    String accessKey = "j8P6ZDr2eO8CwMjHqe9A";			// access key id (from portal or Sub Account)
+    String secretKey = "hR5hFUpcxu1gxGD0d0vKJ5Inu0YCZHW0dUwk8sb2";
+
+    String message = method + space + url + newLine + timestamp.toString() + newLine + accessKey;
+
+    var key = utf8.encode(secretKey);
+    var bytes = utf8.encode(message);
+
+    var hmacSha256 = Hmac(sha256, key);
+    var digest = hmacSha256.convert(bytes).toString();
+
+    print(message);
+    print(timestamp);
+    print(digest);
+
+    location = "abc";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +96,11 @@ class _MainPageState extends State<MainPage> {
             height: MediaQuery.of(context).size.height * 0.15,
           ),
           Text('${widget.username} 님을 위한 추천 코스'),
-          const Row(
+          Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.location_on_outlined),
-                Text('현재 위치'),
+                Text('현재 위치 :: ${location} '),
               ]),
           Container(
             child: Stack(alignment: Alignment.centerLeft, children: <Widget>[
