@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:crypto/crypto.dart';
 import 'package:dayple/main-view/detail-view/DetailPage.dart';
+import 'package:dayple/main-view/map-view/MyMap.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
+import 'package:http/http.dart' as http;
+
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title, required this.username});
@@ -34,30 +36,25 @@ String location = "";
 class _MainPageState extends State<MainPage> {
   int image_index = 0;
 
+  String myLocation = "";
+
   @override
-  void initState() {
-    String space = " ";					// one space
-    String newLine = "\n";					// new line
-    String method = "GET";					// method
-    String url = "/geolocation/v2/geoLocation?ip=112.221.94.101";	// url (include query string)
-    int timestamp = DateTime.now().millisecondsSinceEpoch;
-    String accessKey = "j8P6ZDr2eO8CwMjHqe9A";			// access key id (from portal or Sub Account)
-    String secretKey = "hR5hFUpcxu1gxGD0d0vKJ5Inu0YCZHW0dUwk8sb2";
+  initState() {
 
-    String message = method + space + url + newLine + timestamp.toString() + newLine + accessKey;
-
-    var key = utf8.encode(secretKey);
-    var bytes = utf8.encode(message);
-
-    var hmacSha256 = Hmac(sha256, key);
-    var digest = hmacSha256.convert(bytes).toString();
-
-    print(message);
-    print(timestamp);
-    print(digest);
+    getLocation();
 
     location = "abc";
   }
+
+  Future<String> getLocation() async {
+    final response = await http.get(Uri.parse("http://localhost:8080/ncloud/geolocation"));
+
+    print(response.body);
+    myLocation = response.body;
+    return response.body;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,9 +95,9 @@ class _MainPageState extends State<MainPage> {
           Text('${widget.username} 님을 위한 추천 코스'),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: <Widget>  [
                 Icon(Icons.location_on_outlined),
-                Text('현재 위치 :: ${location} '),
+                Text('현재 위치 :: ${myLocation} '),
               ]),
           Container(
             child: Stack(alignment: Alignment.centerLeft, children: <Widget>[
@@ -267,8 +264,8 @@ class _MainPageState extends State<MainPage> {
             label: 'Delete Last',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: '일정',
+            icon: Icon(Icons.map_outlined),
+            label: 'Map',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -280,6 +277,9 @@ class _MainPageState extends State<MainPage> {
             if (kDebugMode) {
               if (index == 0) {
                 imgList.removeLast();
+              } if ( index == 1){
+                print("hello?");
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const MyMap()));
               }
             }
           });

@@ -1,10 +1,18 @@
 import 'package:dayple/test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 
 import 'login/loginView.dart';
 import 'main-view/MainPage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await NaverMapSdk.instance.initialize(
+      clientId: 'voj9niyo7u',
+      onAuthFailed: (error) {
+        print('Auth failed: $error');
+      });
   // runApp(const MyApp());
   runApp(const MyApp());
 }
@@ -41,7 +49,5 @@ class MyApp extends StatelessWidget {
       // home: Test(),
     );
   }
-
-
 }
 
